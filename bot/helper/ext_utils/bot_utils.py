@@ -230,13 +230,13 @@ def get_readable_message():
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
-            msg += f"<blockquote>\n Size: {download.size()}"
+            msg += f"\n Size: {download.size()}"
             msg += f"\n Speed: {download.upload_speed()}"
             msg += f"\n Uploaded: {download.uploaded_bytes()}"
             msg += f"\n Ratio: {download.ratio()}"
             msg += f"\n Time: {download.seeding_time()}"
         else:
-            msg += f"<blockquote>\n Size: {download.size()}</blockquote>"
+            msg += f"\n Size: {download.size()}</blockquote>"
                 
         msg += f"\n\n<blockquote>✋🏻「/stop_{download.gid()[:8]}」</blockquote>\n\n"
     if len(msg) == 0:
