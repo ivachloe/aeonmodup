@@ -219,7 +219,7 @@ def get_readable_message():
             
             msg += f"<blockquote><code>\n Progress: {download.processed_bytes()} of {download.size()}"
             msg += f"\n Speed: {download.speed()}"
-            msg += f'\n Estimated: {download.eta()}"
+            msg += f'\n Estimated: {download.eta()}'
             msg += f"\n User: {download.message.from_user.mention}"
             msg += f"\n ID: <code>{download.message.from_user.id}</code>\n"
             msg += f"\n Elapsed: {get_readable_time(time() - download.message.date.timestamp())}"
