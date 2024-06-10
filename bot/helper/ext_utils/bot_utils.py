@@ -212,11 +212,12 @@ def get_readable_message():
         globals()['STATUS_START'] = STATUS_LIMIT * (PAGES - 1)
         globals()['PAGE_NO'] = PAGES
     for download in list(download_dict.values())[STATUS_START:STATUS_LIMIT+STATUS_START]:
-        msg += f"<b>{download.status()}</b>"
-        msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
+        msg += f"<b>🍃 {escape(f'{download.name()}')}</b>\n\n"
+        msg += f"<b>{download.status()}...</b>\n"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-            msg += f"<blockquote><code>\n{progress_bar(download.progress())}</code> {download.progress()}"
-            msg += f"\n ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
+            msg += f"\n<code>{progress_bar(download.progress())}</code>  {download.progress()}\n"
+            msg += f"\n╒═════════════════\n"
+            msg += f"<blockquote><code>\n ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
             msg += f"\n sᴘᴇᴇᴅ: {download.speed()}"
             msg += f'\n ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
             msg += f"\n ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ ɪᴅ: <code>{download.message.from_user.id}</code>\n"
@@ -235,7 +236,8 @@ def get_readable_message():
         else:
             msg += f"<blockquote>\n sɪᴢᴇ: {download.size()}"
         msg += f"\n ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}</blockquote>"
-        msg += f"\n<blockquote> ᴄᴀɴᴄᴇʟ ᴛᴀsᴋ: /stop_{download.gid()[:8]}</blockquote>\n\n"
+        msg += f"╘═════════════════\n"
+        msg += f"\n<blockquote>✋🏻「/stop_{download.gid()[:8]}</blockquote>」\n\n"
     if len(msg) == 0:
         return None, None
     dl_speed = 0
@@ -254,11 +256,11 @@ def get_readable_message():
         buttons.ibutton(f"ʀᴇғ 🔄 {PAGE_NO}/{PAGES}", "status ref")
         buttons.ibutton("⬅️ ɴᴇxᴛ", "status nex")
         button = buttons.build_menu(3)
-    msg += f"<b>⌑ Tᴀsᴋs</b>: {tasks}{bmax_task}"
-    msg += f"\n<b>⌑ ʙᴏᴛ ᴜᴘᴛɪᴍᴇ</b>: {currentTime}"
-    msg += f"\n<b>⌑ ғʀᴇᴇ ᴅɪsᴋ sᴘᴀᴄᴇ</b>: {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}"
-    msg += f"\n<b>⌑ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ sᴘᴇᴇᴅ</b>: {get_readable_file_size(dl_speed)}/s"
-    msg += f"\n<b>⌑ ᴜᴘʟᴏᴀᴅɪɴɢ sᴘᴇᴇᴅ</b>: {get_readable_file_size(up_speed)}/s"
+    msg += f"<b>┌ Tasks</b>: {tasks}{bmax_task}"
+    msg += f"\n<b>├ Bot uptime</b>: {currentTime}"
+    msg += f"\n<b>├ Free disk space</b>: {get_readable_file_size(disk_usage('/usr/src/app/downloads/').free)}"
+    msg += f"\n<b>└ Downloading speed</b>: {get_readable_file_size(dl_speed)}/s"
+    msg += f"\n<b>├ Uploading speed</b>: {get_readable_file_size(up_speed)}/s"
     return msg, button
 
 
