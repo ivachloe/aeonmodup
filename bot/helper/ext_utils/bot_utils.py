@@ -221,7 +221,8 @@ def get_readable_message():
             msg += f"\n Speed: {download.speed()}"
             msg += f'\n Estimated: {download.eta()}'
             msg += f"\n User: {download.message.from_user.mention} \n ɪᴅ: <code>{download.message.from_user.id}</code>\n"
-            #msg += f" ᴇɴɢɪɴᴇ: {Engine=download.eng()}\n"
+            msg += f"\n Elapsed: {get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f"\n Engine: {Engine=download.eng()}\n"
             if hasattr(download, 'seeders_num'):
                 try:
                     msg += f" Seeders: {download.seeders_num()} | ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
@@ -234,9 +235,8 @@ def get_readable_message():
             msg += f"\n Ratio: {download.ratio()}"
             msg += f"\n Time: {download.seeding_time()}"
         else:
-            msg += f"<blockquote>\n Size: {download.size()}"
-        msg += f"\n Elapsed: {get_readable_time(time() - download.message.date.timestamp())}</blockquote>"
-        
+            msg += f"<blockquote>\n Size: {download.size()}</blockquote>"
+                
         msg += f"\n\n<blockquote>✋🏻「/stop_{download.gid()[:8]}」</blockquote>\n\n"
     if len(msg) == 0:
         return None, None
