@@ -222,7 +222,7 @@ def get_readable_message():
             msg += f'\n Estimated: {download.eta()}'
             msg += f"\n User: {download.message.from_user.mention} \n ɪᴅ: <code>{download.message.from_user.id}</code>\n"
             msg += f"\n Elapsed: {get_readable_time(time() - download.message.date.timestamp())}"
-            msg += f"\n Engine: {Engine=download.eng()}\n"
+            #msg += f"\n Engine: {Engine=download.eng()}\n"
             if hasattr(download, 'seeders_num'):
                 try:
                     msg += f" Seeders: {download.seeders_num()} | ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
