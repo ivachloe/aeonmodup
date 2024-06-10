@@ -215,22 +215,22 @@ def get_readable_message():
         msg += f"<b>🍃 {escape(f'{download.name()}')}</b>\n\n"
         msg += f"<b>{download.status()}...</b>\n"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-            msg += f"\n<code>{progress_bar(download.progress())}</code>  {download.progress()}\n\n"
+            msg += f"\n<code>{progress_bar(download.progress())}</code>  {download.progress()}\n"
             
             msg += f"<blockquote><code>\n Progress: {download.processed_bytes()} of {download.size()}"
             msg += f"\n Speed: {download.speed()}"
             msg += f'\n Estimated: {download.eta()}'
             msg += f"\n User: {download.message.from_user.mention}"
             msg += f"\n ID: <code>{download.message.from_user.id}</code>"
-            msg += f"\n Elapsed: {get_readable_time(time() - download.message.date.timestamp())}"
+            msg += f"\n Elapsed: {get_readable_time(time() - download.message.date.timestamp())}</blockquote>"
             #msg += f"\n Engine: {Engine=download.eng()}\n"
             if hasattr(download, 'seeders_num'):
                 try:
-                    msg += f" Seeders: {download.seeders_num()} | ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
+                    msg += f"<blockquote>\n Seeders: {download.seeders_num()} | ʟᴇᴇᴄʜᴇʀs: {download.leechers_num()}"
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
-            msg += f"\n Size: {download.size()}"
+            msg += f"<blockquote>\n Size: {download.size()}"
             msg += f"\n Speed: {download.upload_speed()}"
             msg += f"\n Uploaded: {download.uploaded_bytes()}"
             msg += f"\n Ratio: {download.ratio()}"
