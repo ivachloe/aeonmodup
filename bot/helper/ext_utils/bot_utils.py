@@ -77,18 +77,18 @@ PAGE_NO = 1
 STATUS_LIMIT = 4
 
 class MirrorStatus:
-    STATUS_UPLOADING = "Uploading"
-    STATUS_DOWNLOADING = "Downloading"
-    STATUS_CLONING = "Cloning"
+    STATUS_UPLOADING = "⤴️ Uploading"
+    STATUS_DOWNLOADING = "⤵️ Downloading"
+    STATUS_CLONING = "🧬 Cloning"
     STATUS_QUEUEDL = "DL queued"
     STATUS_QUEUEUP = "UL queued"
-    STATUS_PAUSED = "Paused"
-    STATUS_ARCHIVING = "Archiving"
-    STATUS_EXTRACTING = "Extracting"
-    STATUS_SPLITTING = "Splitting"
+    STATUS_PAUSED = "⏸️ Paused"
+    STATUS_ARCHIVING = "🔐 Archiving"
+    STATUS_EXTRACTING = "🔓 Extracting"
+    STATUS_SPLITTING = "⚔️ Splitting"
     STATUS_CHECKING = "CheckUp"
-    STATUS_SEEDING = "Seeding"
-    STATUS_PROCESSING = "Processing"
+    STATUS_SEEDING = "☁️ Seeding"
+    STATUS_PROCESSING = "⌛ Processing"
 
 
 class setInterval:
@@ -189,8 +189,8 @@ def progress_bar(pct):
         pct = float(pct.strip('%'))
     p = min(max(pct, 0), 100)
     cFull = int((p + 5)// 10)
-    p_str = '★' * cFull
-    p_str += '✩' * (10 - cFull)
+    p_str = '⚈' * cFull
+    p_str += '⚆' * (10 - cFull)
     return p_str
 
 
@@ -215,11 +215,11 @@ def get_readable_message():
         msg += f"<b>{download.status()}</b>"
         msg += f"<b>\n⌑ ғɪʟᴇɴᴀᴍᴇ</b> » <i>{escape(f'{download.name()}')}</i>\n"
         if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-            msg += f"\n⌑ {progress_bar(download.progress())} » {download.progress()}"
-            msg += f"\n⌑ ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
-            msg += f"\n⌑ sᴘᴇᴇᴅ: {download.speed()}"
-            msg += f'\n⌑ ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
-            msg += f"\n⌑ ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ ɪᴅ: <code>{download.message.from_user.id}</code>\n"
+            msg += f"<blockquote><code>\n{progress_bar(download.progress())}</code> {download.progress()}"
+            msg += f"\n ᴅᴏɴᴇ: {download.processed_bytes()} of {download.size()}"
+            msg += f"\n sᴘᴇᴇᴅ: {download.speed()}"
+            msg += f'\n ᴇsᴛɪᴍᴀᴛᴇᴅ: {download.eta()}'
+            msg += f"\n ᴜsᴇʀ: {download.message.from_user.mention} \n⌑ ɪᴅ: <code>{download.message.from_user.id}</code>\n"
             #msg += f"⌑ ᴇɴɢɪɴᴇ: {Engine=download.eng()}\n"
             if hasattr(download, 'seeders_num'):
                 try:
@@ -227,15 +227,15 @@ def get_readable_message():
                 except:
                     pass
         elif download.status() == MirrorStatus.STATUS_SEEDING:
-            msg += f"\n⌑ sɪᴢᴇ: {download.size()}"
-            msg += f"\n⌑ sᴘᴇᴇᴅ: {download.upload_speed()}"
-            msg += f"\n⌑ ᴜᴘʟᴏᴀᴅᴇᴅ: {download.uploaded_bytes()}"
-            msg += f"\n⌑ ʀᴀᴛɪᴏ: {download.ratio()}"
-            msg += f"\n⌑ ᴛɪᴍᴇ: {download.seeding_time()}"
+            msg += f"<blockquote>\n sɪᴢᴇ: {download.size()}"
+            msg += f"\n sᴘᴇᴇᴅ: {download.upload_speed()}"
+            msg += f"\n ᴜᴘʟᴏᴀᴅᴇᴅ: {download.uploaded_bytes()}"
+            msg += f"\n ʀᴀᴛɪᴏ: {download.ratio()}"
+            msg += f"\n ᴛɪᴍᴇ: {download.seeding_time()}"
         else:
-            msg += f"\n⌑ sɪᴢᴇ: {download.size()}"
-        msg += f"\n⌑ ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}"
-        msg += f"\n⌑ ᴄᴀɴᴄᴇʟ ᴛᴀsᴋ: /stop_{download.gid()[:8]}\n\n"
+            msg += f"<blockquote>\n sɪᴢᴇ: {download.size()}"
+        msg += f"\n ᴇʟᴀᴘsᴇᴅ: {get_readable_time(time() - download.message.date.timestamp())}</blockquote>"
+        msg += f"\n<blockquote> ᴄᴀɴᴄᴇʟ ᴛᴀsᴋ: /stop_{download.gid()[:8]}</blockquote>\n\n"
     if len(msg) == 0:
         return None, None
     dl_speed = 0
